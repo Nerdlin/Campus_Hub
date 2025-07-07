@@ -1,0 +1,7 @@
+body, html, [class*="overflow"], .hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+body::-webkit-scrollbar, html::-webkit-scrollbar, [class*="overflow"]::-webkit-scrollbar, .hide-scrollbar::-webkit-scrollbar {
+  display: none;
+} 

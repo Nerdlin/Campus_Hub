@@ -1,0 +1,452 @@
+{
+  "users": [
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "email": "chatgpt@openai.com",
+      "password": "",
+      "avatar": "https://cdn.openai.com/chatgpt/icon.png",
+      "isBot": true,
+      "role": "bot"
+    },
+    {
+      "id": "1747751207536",
+      "name": "Nerdlin",
+      "email": "nerdlinnut@gmail.com",
+      "password": "1194",
+      "role": "student",
+      "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+      "banner": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "skills": [
+        "JavaScript",
+        "React"
+      ],
+      "achievements": [
+        "Best Student 2024"
+      ],
+      "subjects": [
+        "Math",
+        "Web Development",
+        "Data Structures"
+      ],
+      "schedule": [
+        {
+          "id": "1",
+          "subject": "Math",
+          "day": "monday",
+          "time": "08:00-09:30",
+          "room": "301",
+          "date": "2024-05-21"
+        },
+        {
+          "id": "2",
+          "subject": "Web Development",
+          "day": "tuesday",
+          "time": "09:45-11:15",
+          "room": "302",
+          "date": "2024-05-21"
+        }
+      ],
+      "grades": [
+        {
+          "id": "1",
+          "subject": "Math",
+          "type": "exam",
+          "value": 95,
+          "date": "2024-05-10"
+        },
+        {
+          "id": "2",
+          "subject": "Web Development",
+          "type": "project",
+          "value": 88,
+          "date": "2024-05-15"
+        },
+        {
+          "id": "1748414160236",
+          "subject": "test",
+          "value": "1",
+          "type": "project",
+          "date": "2025-05-28"
+        }
+      ],
+      "attendance": [
+        {
+          "subject": "Math",
+          "date": "2024-05-20",
+          "status": "Present",
+          "notes": ""
+        },
+        {
+          "subject": "Web Development",
+          "date": "2024-05-20",
+          "status": "Absent",
+          "notes": "Sick"
+        }
+      ],
+      "library": {
+        "books": [
+          {
+            "title": "JavaScript: The Good Parts",
+            "author": "Douglas Crockford",
+            "due": "2024-06-01"
+          }
+        ],
+        "history": [
+          {
+            "title": "Eloquent JavaScript",
+            "returned": true
+          }
+        ],
+        "fines": 0
+      }
+    },
+    {
+      "id": "admin-1",
+      "name": "Nerdlin_Admin",
+      "email": "nerdlin@admin.com",
+      "password": "11941194",
+      "role": "admin",
+      "avatar": "",
+      "banner": "",
+      "skills": [],
+      "achievements": [],
+      "subjects": [],
+      "schedule": [],
+      "grades": []
+    },
+    {
+      "id": "1748414035178",
+      "name": "test",
+      "email": "test@gmail.com",
+      "password": "1194",
+      "role": "teacher",
+      "avatar": "",
+      "banner": "",
+      "skills": [],
+      "achievements": [],
+      "subjects": [
+        {
+          "name": "test",
+          "students": [],
+          "grades": []
+        }
+      ],
+      "schedule": [],
+      "grades": []
+    }
+  ],
+  "chats": [
+    {
+      "id": "1748345645917",
+      "members": [
+        "1747751207536",
+        "chatgpt"
+      ],
+      "messages": []
+    },
+    {
+      "id": "1748346105171",
+      "members": [
+        "admin-1",
+        "chatgpt"
+      ],
+      "messages": [
+        {
+          "id": "1748346412576",
+          "sender": "admin-1",
+          "text": "привет",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T11:46:52.576Z"
+        },
+        {
+          "id": "1748346640881",
+          "sender": "admin-1",
+          "text": "Привет",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T11:50:40.881Z"
+        },
+        {
+          "id": "1748346992259",
+          "sender": "admin-1",
+          "text": "Привет",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T11:56:32.259Z"
+        },
+        {
+          "id": "1748347164967",
+          "sender": "admin-1",
+          "text": "Привет",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T11:59:24.967Z"
+        },
+        {
+          "id": "1748347274885",
+          "sender": "admin-1",
+          "text": "как дела ?",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T12:01:14.885Z"
+        },
+        {
+          "id": "1748347361835",
+          "sender": "admin-1",
+          "text": "Привет, как дела ?",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T12:02:41.835Z"
+        },
+        {
+          "id": "1748347430171",
+          "sender": "admin-1",
+          "text": "Привет, как дела ?",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T12:03:50.171Z"
+        },
+        {
+          "id": "1748347432870",
+          "sender": "chatgpt",
+          "text": "Привет! У меня все отлично, спасибо. Как у тебя?",
+          "type": "text",
+          "createdAt": "2025-05-27T12:03:52.869Z"
+        },
+        {
+          "id": "1748347475102",
+          "sender": "admin-1",
+          "text": "хорошо , а как у тебя дела ?",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T12:04:35.102Z"
+        },
+        {
+          "id": "1748347476874",
+          "sender": "chatgpt",
+          "text": "Я всего лишь компьютерная программа, поэтому у меня нет физических или эмоциональных состояний. Моя задача - помогать ответами на вопросы и предоставлять информацию. Есть что-то, в чем я могу помочь?",
+          "type": "text",
+          "createdAt": "2025-05-27T12:04:36.874Z"
+        },
+        {
+          "id": "1748347547642",
+          "sender": "admin-1",
+          "text": "Что делаешь ?",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T12:05:47.642Z"
+        },
+        {
+          "id": "1748347552406",
+          "sender": "chatgpt",
+          "text": "Я здесь, чтобы помочь ответами на вопросы, предоставить информацию и поддержать вас в чем угодно. Если у вас есть какие-то вопросы или нужна помощь, не стесняйтесь спрашивать!",
+          "type": "text",
+          "createdAt": "2025-05-27T12:05:52.405Z"
+        },
+        {
+          "id": "1748347638872",
+          "sender": "admin-1",
+          "text": "что делаешь",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-27T12:07:18.872Z"
+        },
+        {
+          "id": "1748347641098",
+          "sender": "chatgpt",
+          "text": "В данный момент я готов отвечать на ваши вопросы и помогать вам с информацией. Есть ли у вас что-то, в чем я могу помочь?",
+          "type": "text",
+          "createdAt": "2025-05-27T12:07:21.097Z"
+        },
+        {
+          "id": "1748407096553",
+          "sender": "admin-1",
+          "text": "Привет Как дела ?",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-28T04:38:16.553Z"
+        },
+        {
+          "id": "1748407097855",
+          "sender": "chatgpt",
+          "text": "Привет! У меня все отлично, спасибо. Как у вас дела?",
+          "type": "text",
+          "createdAt": "2025-05-28T04:38:17.854Z"
+        },
+        {
+          "id": "1748957584766",
+          "sender": "admin-1",
+          "text": "Привет",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "size": 0,
+          "createdAt": "2025-06-03T13:33:04.766Z"
+        },
+        {
+          "id": "1748957586615",
+          "sender": "chatgpt",
+          "text": "Привет! Как я могу помочь вам сегодня?",
+          "type": "text",
+          "createdAt": "2025-06-03T13:33:06.614Z"
+        }
+      ]
+    },
+    {
+      "id": "1748408262846",
+      "members": [
+        "1747751207536",
+        "admin-1"
+      ],
+      "messages": [
+        {
+          "id": "1748408266881",
+          "sender": "admin-1",
+          "text": "Привет",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-28T04:57:46.881Z"
+        },
+        {
+          "id": "1748408491916",
+          "sender": "1747751207536",
+          "text": "тест",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "createdAt": "2025-05-28T05:01:31.916Z"
+        },
+        {
+          "id": "1748409054106",
+          "sender": "admin-1",
+          "text": "",
+          "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "file": "993f3ecf4a7f0e072cc7b8de0c0a3f89",
+          "originalName": "Ð¿Ð¾Ð²ÑÑÐµÐ½Ð¸Ñ.xlsx",
+          "createdAt": "2025-05-28T05:10:54.106Z"
+        },
+        {
+          "id": "1748409318260",
+          "sender": "admin-1",
+          "text": "тест",
+          "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "file": "3949a2f5618fef0c211f42828f865f9e",
+          "originalName": "Ð¿Ð¾Ð²ÑÑÐµÐ½Ð¸Ñ.xlsx",
+          "createdAt": "2025-05-28T05:15:18.260Z"
+        },
+        {
+          "id": "1748409334577",
+          "sender": "admin-1",
+          "text": "тест",
+          "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "file": "e7b35a2f50917d05391081ba461e7eb2",
+          "originalName": "ÐºÐ°Ð·Ð¸Ñ.xlsx",
+          "createdAt": "2025-05-28T05:15:34.577Z"
+        },
+        {
+          "id": "1748409484218",
+          "sender": "admin-1",
+          "text": "тест 2",
+          "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "file": "708a38c35e380b1337de1a5acb1070dd",
+          "originalName": "Ð¿Ð¾Ð²ÑÑÐµÐ½Ð¸Ñ.xlsx",
+          "size": 9879,
+          "createdAt": "2025-05-28T05:18:04.218Z"
+        },
+        {
+          "id": "1748410646125",
+          "sender": "admin-1",
+          "text": "тест",
+          "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "file": "04258b12565f814740dc84676c669032",
+          "originalName": "казич.xlsx",
+          "size": 7180,
+          "createdAt": "2025-05-28T05:37:26.125Z"
+        },
+        {
+          "id": "1748410753674",
+          "sender": "admin-1",
+          "text": "тест",
+          "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "file": "0076e7750305fe3d4502ff36ae7fbd5f",
+          "originalName": "повышения.xlsx",
+          "size": 9879,
+          "createdAt": "2025-05-28T05:39:13.674Z"
+        },
+        {
+          "id": "1749829309011",
+          "sender": "admin-1",
+          "text": "тест",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "size": 0,
+          "createdAt": "2025-06-13T15:41:49.011Z"
+        },
+        {
+          "id": "1749829982650",
+          "sender": "admin-1",
+          "text": "😃",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "size": 0,
+          "createdAt": "2025-06-13T15:53:02.650Z"
+        }
+      ]
+    },
+    {
+      "id": "1748414089184",
+      "members": [
+        "1748414035178",
+        "admin-1"
+      ],
+      "messages": [
+        {
+          "id": "1748414097058",
+          "sender": "admin-1",
+          "text": "test",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "size": 0,
+          "createdAt": "2025-05-28T06:34:57.058Z"
+        },
+        {
+          "id": "1748414224291",
+          "sender": "admin-1",
+          "text": "а",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "size": 0,
+          "createdAt": "2025-05-28T06:37:04.291Z"
+        },
+        {
+          "id": "1748414226388",
+          "sender": "admin-1",
+          "text": "а",
+          "type": "text",
+          "file": null,
+          "originalName": null,
+          "size": 0,
+          "createdAt": "2025-05-28T06:37:06.388Z"
+        }
+      ]
+    }
+  ]
+}
