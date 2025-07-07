@@ -83,7 +83,7 @@
 ---
 
 ## Контакты и поддержка
-- [Telegram](https://t.me/nerdlin
+- [Telegram](https://t.me/nerdlin)
 - [Email](nerdlinnut@gmail.com)
 
 ---
