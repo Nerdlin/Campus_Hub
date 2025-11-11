@@ -113,7 +113,15 @@
       "achievements": [],
       "subjects": [],
       "schedule": [],
-      "grades": []
+      "grades": [
+        {
+          "id": "1762863455551",
+          "subject": "Тест",
+          "value": 5,
+          "type": "Сессия",
+          "date": "2025-11-11"
+        }
+      ]
     },
     {
       "id": "1748414035178",
@@ -132,6 +140,20 @@
           "grades": []
         }
       ],
+      "schedule": [],
+      "grades": []
+    },
+    {
+      "id": "1762863329734",
+      "name": "Aliar",
+      "email": "aliar@gmail.com",
+      "password": "11941194",
+      "role": "student",
+      "avatar": "",
+      "banner": "",
+      "skills": [],
+      "achievements": [],
+      "subjects": [],
       "schedule": [],
       "grades": []
     }
@@ -447,6 +469,47 @@
           "createdAt": "2025-05-28T06:37:06.388Z"
         }
       ]
+    },
+    {
+      "members": [
+        "1747751207536",
+        "admin-1"
+      ],
+      "id": "s12boh0"
+    },
+    {
+      "members": [
+        "1747751207536",
+        "1748414035178"
+      ],
+      "id": "p-FhNYa"
+    },
+    {
+      "members": [
+        "1747751207536",
+        "admin-1"
+      ],
+      "id": "1v6ZzEY"
+    },
+    {
+      "members": [
+        "1747751207536",
+        "admin-1"
+      ],
+      "id": "bGT0rOi"
     }
-  ]
+  ],
+  "announcements": [
+    {
+      "title": "бубабаба",
+      "content": "айЦВДЙЛТАЛОУВЙ",
+      "type": "important",
+      "priority": "high",
+      "expiresAt": "2025-12-02",
+      "author": "Nerdlin_Admin",
+      "authorRole": "admin",
+      "id": 1
+    }
+  ],
+  "subjects": []
 }
