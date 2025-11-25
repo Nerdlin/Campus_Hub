@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import ChatWindow from "../../../src/chat/ChatWindow";
-import ChatList from "../../../src/chat/ChatList";
-import NewChatModal from "../../../src/chat/NewChatModal";
-import AudioMessage from "../../../src/chat/AudioMessage";
-import FileMessage from "../../../src/chat/FileMessage";
-import RecorderControls from "../../../src/chat/RecorderControls";
-import { useAuth } from "../../../src/hooks/useAuth";
+import ChatWindow from "@/components/ChatWindow";
+import ChatList from "@/components/ChatList";
+import NewChatModal from "@/components/NewChatModal";
+import AudioMessage from "@/components/AudioMessage";
+import FileMessage from "@/components/FileMessage";
+import RecorderControls from "@/components/RecorderControls";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function ChatPage() {
   const { user } = useAuth();

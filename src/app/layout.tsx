@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientRoot from "./ClientRoot";
-import { ThemeProvider } from '../hooks/useTheme';
+import { ThemeProvider } from "@/hooks/useTheme.tsx";
 
 export const metadata: Metadata = {
   title: "Campus Hub - Образовательная платформа",
