@@ -1,0 +1,87 @@
+# КОМАНДЫ ДЛЯ ВЫПОЛНЕНИЯ НА СЕРВЕРЕ
+# Скопируйте и вставьте в SSH терминал (root@164.92.104.243)
+
+# ========== ШАГ 1: ОСТАНОВКА И ОЧИСТКА ==========
+sudo systemctl stop campus-hub.service campus-hub-api.service
+sudo rm -rf /var/www/Campus_Hub/.next
+
+# ========== ШАГ 2: ОБНОВЛЕНИЕ КОДА ==========
+cd /var/www/Campus_Hub
+sudo -u campus git pull
+sudo chown -R campus:campus /var/www/Campus_Hub
+sudo chmod -R 750 /var/www/Campus_Hub
+sudo chmod -R 770 /var/www/Campus_Hub/uploads
+
+# ========== ШАГ 3: СБОРКА ==========
+sudo -u campus npm run build
+
+# ========== ШАГ 4: ОБНОВЛЕНИЕ SYSTEMD ==========
+sudo cp /var/www/Campus_Hub/deploy/systemd/campus-hub*.service /etc/systemd/system/
+sudo systemctl daemon-reload
+
+# ========== ШАГ 5: ЗАПУСК СЕРВИСОВ ==========
+sudo systemctl start campus-hub-api.service
+sudo systemctl start campus-hub.service
+
+# ========== ШАГ 6: ПРОВЕРКА СТАТУСА ==========
+echo "=== API Service Status ==="
+sudo systemctl status campus-hub-api.service --no-pager -l
+
+echo ""
+echo "=== Next.js Service Status ==="
+sudo systemctl status campus-hub.service --no-pager -l
+
+echo ""
+echo "=== Listening Ports ==="
+sudo ss -tlnp | grep -E ':(3000|4000)'
+
+# ========== ШАГ 7: НАСТРОЙКА NGINX ==========
+# Получаем IP
+SERVER_IP=$(curl -s ifconfig.me)
+echo "Server IP: $SERVER_IP"
+
+# Копируем и настраиваем nginx конфиг
+sudo cp /var/www/Campus_Hub/deploy/nginx/campus-hub.conf /etc/nginx/sites-available/campus-hub.conf
+sudo sed -i "s/YOUR_DOMAIN/$SERVER_IP/g" /etc/nginx/sites-available/campus-hub.conf
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo ln -sf /etc/nginx/sites-available/campus-hub.conf /etc/nginx/sites-enabled/
+
+# Проверка и перезапуск nginx
+sudo nginx -t && sudo systemctl reload nginx
+
+echo ""
+echo "=========================================="
+echo "ДЕПЛОЙ ЗАВЕРШЁН!"
+echo "=========================================="
+echo "Приложение доступно по адресу: http://$SERVER_IP"
+echo "API: http://$SERVER_IP/api/"
+echo "=========================================="
+
+# Проверка работоспособности
+echo ""
+echo "=== Проверка API ==="
+curl -I http://localhost:4000
+
+echo ""
+echo "=== Проверка Next.js ==="
+curl -I http://localhost:3000
+
+# ========== ОПЦИОНАЛЬНО: БЕЗОПАСНОСТЬ И БЭКАПЫ ==========
+# Раскомментируйте если нужно:
+
+# sudo apt install -y fail2ban
+# sudo apt install -y unattended-upgrades
+# sudo dpkg-reconfigure --priority=low unattended-upgrades
+
+# Создание скрипта бэкапа
+# sudo mkdir -p /var/backups/campus-hub
+# cat << 'EOFBACKUP' | sudo tee /usr/local/bin/backup-campus.sh
+# #!/bin/bash
+# BACKUP_DIR="/var/backups/campus-hub"
+# DATE=$(date +%Y-%m-%d_%H-%M-%S)
+# cd /var/www/Campus_Hub
+# tar czf "$BACKUP_DIR/campus-$DATE.tar.gz" db.json uploads/
+# find "$BACKUP_DIR" -name "campus-*.tar.gz" -mtime +7 -delete
+# EOFBACKUP
+# sudo chmod +x /usr/local/bin/backup-campus.sh
+# echo "0 2 * * * root /usr/local/bin/backup-campus.sh >> /var/log/campus-backup.log 2>&1" | sudo tee /etc/cron.d/campus-hub-backup
