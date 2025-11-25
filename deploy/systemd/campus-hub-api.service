@@ -5,12 +5,13 @@ After=network.target
 [Service]
 Type=simple
 Environment=NODE_ENV=production
+Environment=PORT=4000
 WorkingDirectory=/var/www/Campus_Hub
 ExecStart=/usr/bin/node server.js
 Restart=always
 RestartSec=10
-User=www-data
-Group=www-data
+User=campus
+Group=campus
 
 [Install]
 WantedBy=multi-user.target
