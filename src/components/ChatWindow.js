@@ -4,6 +4,8 @@ import { chatApi, userApi } from '@/lib/api';
 import UserProfileModal from '@/components/modals/UserProfileModal';
 
 const EMOJIS = ['👍', '😂', '🔥', '❤️', '😮', '😢', '👏', '🎉'];
+const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === 'true';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function ChatWindow({ chat, onClose }) {
   const [messages, setMessages] = useState([]);
@@ -80,12 +82,21 @@ export default function ChatWindow({ chat, onClose }) {
     if (isBotChat && sentMsg && sentMsg.text) {
       setTimeout(async () => {
         try {
+          if (isGitHubPages) {
+            setMessages(prev => [...prev, {
+              id: (Date.now() + 1).toString(),
+              sender: 'bot',
+              text: 'AI bot is unavailable on GitHub Pages (requires a separate backend).',
+              time: new Date().toLocaleTimeString(),
+            }]);
+            return;
+          }
           // Собираем последние 10 сообщений для истории
           const history = [...messages, sentMsg].slice(-10).map(m => ({
             role: m.sender === 'me' ? 'user' : 'assistant',
             content: m.text,
           }));
-          const res = await fetch('/api/gpt', {
+          const res = await fetch(`${basePath}/api/gpt`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: sentMsg.text, history }),

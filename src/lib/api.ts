@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === 'true';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || (isGitHubPages ? '' : 'http://localhost:4000/api');
 
 // Auth API
 export const authApi = {
@@ -260,7 +262,7 @@ axios.interceptors.response.use(
       if (typeof window !== 'undefined') {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '/login';
+        window.location.href = `${basePath}/login`;
       }
     }
     return Promise.reject(error);

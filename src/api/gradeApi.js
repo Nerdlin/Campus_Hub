@@ -1,7 +1,8 @@
 // gradeApi.js — API для работы с оценками
 // Все функции используют fetch к http://localhost:4000
 
-const API_URL = 'http://localhost:4000/api';
+const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === 'true';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || (isGitHubPages ? '' : 'http://localhost:4000/api');
 
 /** Поставить оценку студенту по предмету */
 export async function postGrade({ studentId, subjectId, value, teacherId }) {

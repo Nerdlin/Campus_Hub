@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const isGitHubPagesBuild = process.env.GITHUB_PAGES === "true";
-const repositoryBasePath = "/Campus_Hub";
+const repositoryBasePath = process.env.NEXT_PUBLIC_BASE_PATH || "/Campus_Hub";
 
 const nextConfig: NextConfig = {
   eslint: {
