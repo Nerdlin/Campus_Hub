@@ -1,2 +1,5 @@
 import React from 'react';
-// ... (rest of the code from src/chat/RecorderControls.js) ... 
+
+export default function RecorderControls() {
+  return <div className="p-2 text-xs text-gray-400">RecorderControls в разработке.</div>;
+}

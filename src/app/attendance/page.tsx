@@ -1,6 +1,5 @@
 "use client";
-import React from 'react';
-import { useAuth } from '../../hooks/useAuth';
-import TeacherPanel from '../../components/teacher/TeacherPanel';
-import AdminPanel from '../../components/AdminPanel';
-// ... (rest of the code from src/pages/Attendance.js, adapted for Next.js app router) ... 
+
+export default function AttendancePage() {
+  return <div className="p-8 text-gray-300">Раздел посещаемости находится в доработке.</div>;
+}
