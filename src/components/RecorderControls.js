@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function RecorderControls() {
-  return null;
+  return <div className="p-2 text-xs text-gray-400">RecorderControls в разработке.</div>;
 }

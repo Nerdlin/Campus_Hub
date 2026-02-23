@@ -1,5 +1,5 @@
 "use client";
 
 export default function ResetPasswordPage() {
-  return null;
+  return <div className="p-8 text-gray-300">Страница сброса пароля находится в доработке.</div>;
 }

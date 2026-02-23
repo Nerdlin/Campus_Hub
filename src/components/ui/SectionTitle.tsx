@@ -1,12 +1,20 @@
 import React from 'react';
 
-interface SectionTitleProps {
-  children?: React.ReactNode;
-  title?: string;
-  subtitle?: string;
-  icon?: React.ReactNode;
-  className?: string;
-}
+type SectionTitleProps =
+  | {
+      children: React.ReactNode;
+      className?: string;
+      title?: never;
+      subtitle?: never;
+      icon?: never;
+    }
+  | {
+      title: string;
+      subtitle?: string;
+      icon?: React.ReactNode;
+      className?: string;
+      children?: never;
+    };
 
 export default function SectionTitle({ children, title, subtitle, icon, className = '' }: SectionTitleProps) {
   if (title) {

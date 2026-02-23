@@ -22,7 +22,7 @@ export default function SettingsPage() {
   const [is2FAModalOpen, setIs2FAModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [language, setLanguage] = useState(
-    () => (typeof window !== "undefined" ? localStorage.getItem("lang") : null) || "ru"
+    () => (typeof window !== "undefined" ? localStorage.getItem("lang") || "ru" : "ru")
   );
   const [notifications, setNotifications] = useState(() => {
     const saved = typeof window !== "undefined" ? localStorage.getItem("notifications") : null;
