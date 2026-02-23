@@ -88,4 +88,12 @@
 
 ---
 
+## GitHub Pages
+- В репозитории добавлен workflow `.github/workflows/deploy-pages.yml` для автодеплоя на GitHub Pages.
+- После пуша в `main` будет выполняться сборка и публикация статической версии сайта.
+- Включите **Settings → Pages → Source: GitHub Actions**.
+- Сайт будет доступен по адресу: `https://nerdlin.github.io/Campus_Hub/`.
+
+---
+
 **Campus Hub — современное образование для всех!**
