@@ -1,2 +1,5 @@
 import React from 'react';
-// ... (rest of the code from src/chat/RecorderControls.js) ... 
+
+export default function RecorderControls() {
+  return null;
+}

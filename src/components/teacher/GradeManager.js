@@ -1,2 +1,5 @@
 import React from 'react';
-// ... (rest of the code from src/teacher/GradeManager.js) ... 
+
+export default function GradeManager() {
+  return null;
+}

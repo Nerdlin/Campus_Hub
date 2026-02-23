@@ -21,9 +21,11 @@ export default function SettingsPage() {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [is2FAModalOpen, setIs2FAModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
-  const [language, setLanguage] = useState(() => localStorage.getItem('lang') || "ru");
+  const [language, setLanguage] = useState(
+    () => (typeof window !== "undefined" ? localStorage.getItem("lang") : null) || "ru"
+  );
   const [notifications, setNotifications] = useState(() => {
-    const saved = localStorage.getItem('notifications');
+    const saved = typeof window !== "undefined" ? localStorage.getItem("notifications") : null;
     return saved ? JSON.parse(saved) : { email: true, push: false };
   });
   const [editMode, setEditMode] = useState(false);

@@ -1,2 +1,5 @@
 import React from 'react';
-// ... (rest of the code from src/admin/LibraryManager.js) ... 
+
+export default function LibraryManager() {
+  return null;
+}

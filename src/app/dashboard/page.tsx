@@ -1,2 +1,5 @@
-import React from 'react';
-// ... (rest of the code from src/pages/Dashboard.js, adapted for Next.js app router) ... 
+"use client";
+
+export default function DashboardPage() {
+  return null;
+}
