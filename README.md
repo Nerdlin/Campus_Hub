@@ -1,41 +1,42 @@
-﻿# Campus Hub
+﻿# Campus Hub — образовательная платформа
 
-Modern educational platform built with Next.js and React.
+Campus Hub — веб-платформа на Next.js/React для студентов, преподавателей и администраторов: дашборды, оценки, расписание, сообщения и AI-функции.
 
-Live page: [https://nerdlin.github.io/Campus_Hub/](https://nerdlin.github.io/Campus_Hub/)
+## Основные возможности
+- Раздельные интерфейсы для ролей: `student`, `teacher`, `admin`
+- Управление пользователями, предметами, оценками и расписанием
+- Сообщения и чаты
+- Страница материалов и вложений
+- API-роут для AI (`/api/gpt`)
+- Поддержка светлой/тёмной темы
 
-## What the Project Includes
-- Student, teacher, and admin dashboards
-- Messaging and chat flows
-- Grade and schedule management
-- Profile/settings pages
-- AI assistant API route (`/api/gpt`)
-- Light/dark UI support
+## Режимы работы
+### 1) Локальный full-stack
+- Frontend: Next.js
+- Backend: локальный `server.js`
+- Полный рабочий CRUD и авторизация
 
-## Runtime Modes
-Campus Hub supports 3 practical modes:
+### 2) GitHub Pages demo mode
+- Если `NEXT_PUBLIC_API_URL` не задан при Pages-сборке, включается демо-режим
+- Данные хранятся в `localStorage` браузера
+- Ошибка `405` для `/login` в этом режиме не возникает
 
-1. Local full-stack mode
-Run Next.js + local API server (`server.js`) for full CRUD/auth flows.
+### 3) Production API mode (Render/VPS)
+- Фронтенд отправляет реальные запросы в ваш API
+- Нужно задать `NEXT_PUBLIC_API_URL=https://<your-api>/api`
 
-2. GitHub Pages demo mode
-When deployed to Pages without `NEXT_PUBLIC_API_URL`, frontend automatically uses browser-local demo storage (no backend required).
-
-3. Production API mode (Render/VPS/etc.)
-Set `NEXT_PUBLIC_API_URL=https://<your-api>/api` and use real backend endpoints.
-
-## Quick Start (Local)
+## Быстрый старт (локально)
 ```bash
 npm install
 npm run dev
 ```
 
-By default:
-- App: `http://localhost:3000`
-- Local API server: `http://localhost:4000`
+По умолчанию:
+- приложение: `http://localhost:3000`
+- локальный API: `http://localhost:4000`
 
-## Environment Variables
-Create `.env.local` and set what you need:
+## Переменные окружения
+Создайте `.env.local`:
 
 ```env
 # Frontend/API
@@ -43,72 +44,65 @@ NEXT_PUBLIC_API_URL=http://localhost:4000/api
 NEXT_PUBLIC_BASE_PATH=/Campus_Hub
 NEXT_PUBLIC_GITHUB_PAGES=false
 
-# Integrations
+# Интеграции
 OPENAI_API_KEY=
 OPENWEATHER_API_KEY=
 NEWSAPI_KEY=
 
-# Local API server
+# Локальный API-сервер
 PORT=4000
 CORS_ORIGIN=*
 MAX_UPLOAD_SIZE_MB=10
 ```
 
-### GitHub Pages Note
-If `NEXT_PUBLIC_API_URL` is empty on Pages build, app falls back to demo mode intentionally.
+## Демо-аккаунты (Pages demo mode)
+- `admin@campushub.local / admin123`
+- `teacher@campushub.local / teacher123`
+- `student@campushub.local / student123`
 
-## Demo Accounts (Pages demo mode)
-- `admin@campushub.local` / `admin123`
-- `teacher@campushub.local` / `teacher123`
-- `student@campushub.local` / `student123`
-
-## Scripts
-| Script | Description |
+## Скрипты
+| Скрипт | Что делает |
 |---|---|
-| `npm run dev` | Run Next.js + local API server |
-| `npm run server` | Run only local API server |
-| `npm run build` | Production build |
-| `npm run start` | Start built app |
-| `npm run lint` | Lint checks |
+| `npm run dev` | Запускает Next.js + локальный API |
+| `npm run server` | Поднимает только локальный API |
+| `npm run build` | Production-сборка |
+| `npm run start` | Запуск собранного приложения |
+| `npm run lint` | Проверки ESLint |
 
-## Render Setup (Production API)
-If you want real backend instead of demo mode:
-
-1. Deploy backend service (Node) using this repo (or a backend-only copy).
-2. Ensure service exposes API routes (for example `/api/login`, `/api/register`, etc.).
-3. In GitHub Actions Pages workflow, set:
+## Настройка Render (если нужен реальный backend)
+1. Поднимите API-сервис на Render.
+2. Убедитесь, что доступны роуты вида `/api/login`, `/api/register`, и т.д.
+3. В GitHub Actions для Pages передайте:
    - `NEXT_PUBLIC_API_URL=https://<your-render-domain>/api`
-4. Redeploy Pages.
+4. Перезапустите деплой Pages.
 
-After this, frontend sends real requests and does not use demo storage.
+## Почему бывает 405 на GitHub Pages
+`405 Method Not Allowed` появляется, когда фронтенд пытается сделать `POST /login` на статический хостинг без API.
 
-## Why You May See 405 on Pages
-`405 Method Not Allowed` happens when frontend sends `POST /login` to static Pages host (no backend route there).
+В этом репозитории это закрыто demo-режимом: без `NEXT_PUBLIC_API_URL` на Pages приложение уходит в браузерный fallback.
 
-Current README setup avoids this by defaulting to demo mode when no API URL is configured.
-
-## Project Structure (Simplified)
+## Структура проекта
 ```text
 Campus_Hub/
   src/
-    app/                  # App Router pages
-    components/           # UI and feature components
-    hooks/                # Shared hooks
+    app/                  # Страницы (App Router)
+    components/           # UI и бизнес-компоненты
+    hooks/                # React hooks
     lib/
-      api.ts              # Main API layer + demo fallback
-      i18n.ts             # i18n bootstrap
-    api/                  # Legacy wrappers used by some pages
-  server.js               # Local API server for development
-  db.json                 # Local data source for json-server
+      api.ts              # Единый API слой + demo fallback
+      i18n.ts             # Инициализация i18n
+    api/                  # Legacy-обёртки для совместимости
+  server.js               # Локальный API для разработки
+  db.json                 # Данные json-server
   .github/workflows/
-    deploy-pages.yml      # GitHub Pages deploy
-    ci.yml                # CI checks
+    deploy-pages.yml      # Деплой на GitHub Pages
+    ci.yml                # CI-проверки
 ```
 
-## Screenshots
+## Скриншоты
 ![Chat](public/preview-chat.png)
 ![Dark Theme](public/preview-dark.png)
 ![Admin Panel](public/preview-admin.png)
 
-## License
+## Лицензия
 MIT
