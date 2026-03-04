@@ -1,99 +1,114 @@
-# Campus Hub — Современная образовательная платформа
+﻿# Campus Hub
 
-## О проекте
-**Campus Hub** — это современная образовательная платформа для студентов, преподавателей и администраторов. Проект реализован на Next.js/React с поддержкой реальных API, продвинутого чата с AI-ботом, глобальной темой, ролевым доступом и интеграцией с внешними сервисами (погода, новости, курсы валют и др.).
+Modern educational platform built with Next.js and React.
 
----
+Live page: [https://nerdlin.github.io/Campus_Hub/](https://nerdlin.github.io/Campus_Hub/)
 
-## Основные возможности
-- 📚 **Дашборды** для студентов, преподавателей и админов
-- 💬 **Чат** с реальными пользователями и AI-ботом (ChatGPT)
-- 🔔 **Push-уведомления** и real-time обновления (WebSocket)
-- 👤 **Управление пользователями** (поиск, фильтры, CRUD, смена ролей, блокировка)
-- 🗂️ **Управление предметами, оценками, расписанием**
-- 🌗 **Глобальная поддержка светлой/тёмной темы**
-- 🔒 **Ролевой доступ** (студент, преподаватель, админ)
-- 🔑 **Восстановление и смена пароля**
-- 📎 **Вложения и поиск по сообщениям**
-- 🤖 **AI-бот с интеграцией OpenAI** (контекстные ответы, поддержка истории)
-- 🌦️ **Погода, новости, курсы валют, транспорт, кино, расписание звонков**
+## What the Project Includes
+- Student, teacher, and admin dashboards
+- Messaging and chat flows
+- Grade and schedule management
+- Profile/settings pages
+- AI assistant API route (`/api/gpt`)
+- Light/dark UI support
 
----
+## Runtime Modes
+Campus Hub supports 3 practical modes:
 
-## Скриншоты
-- ![Чат с AI-ботом](public/preview-chat.png)
-- ![Тёмная тема](public/preview-dark.png)
-- ![Панель администратора](public/preview-admin.png)
+1. Local full-stack mode
+Run Next.js + local API server (`server.js`) for full CRUD/auth flows.
 
----
+2. GitHub Pages demo mode
+When deployed to Pages without `NEXT_PUBLIC_API_URL`, frontend automatically uses browser-local demo storage (no backend required).
 
-## Быстрый старт
+3. Production API mode (Render/VPS/etc.)
+Set `NEXT_PUBLIC_API_URL=https://<your-api>/api` and use real backend endpoints.
 
-1. **Клонируйте репозиторий:**
-   ```bash
-   git clone ...
-   cd campus-hub
-   ```
-2. **Установите зависимости:**
-   ```bash
-   npm install
-   ```
-3. **Создайте файл `.env.local` и добавьте ключи:**
-   ```env
-   OPENAI_API_KEY=sk-...
-   OPENWEATHER_API_KEY=...
-   NEWSAPI_KEY=...
-   ```
-   > Для получения ключей смотрите раздел "Интеграция с сервисами" ниже.
-4. **Запустите проект:**
-   ```bash
-   npm run dev
-   ```
-5. **Откройте в браузере:**
-   [http://localhost:3000](http://localhost:3000)
+## Quick Start (Local)
+```bash
+npm install
+npm run dev
+```
 
----
+By default:
+- App: `http://localhost:3000`
+- Local API server: `http://localhost:4000`
 
-## Интеграция с сервисами
-- **OpenAI** — для AI-бота (https://platform.openai.com/)
-- **OpenWeatherMap** — погода (https://openweathermap.org/)
-- **NewsAPI** — новости (https://newsapi.org/)
-- **ExchangeRate.host** — курсы валют (https://exchangerate.host/)
-- **Транспорт, кино, звонки** — демонстрационные ответы (можно подключить реальные API)
+## Environment Variables
+Create `.env.local` and set what you need:
 
----
+```env
+# Frontend/API
+NEXT_PUBLIC_API_URL=http://localhost:4000/api
+NEXT_PUBLIC_BASE_PATH=/Campus_Hub
+NEXT_PUBLIC_GITHUB_PAGES=false
 
-## Примеры запросов для AI-бота
-- "Какая погода в Париже?"
-- "Свежие новости в США"
-- "Курс доллара к евро"
-- "Когда следующий автобус 12 в Москве?"
-- "Какие фильмы идут сегодня в Алматы?"
-- "Расписание звонков в школе №5"
+# Integrations
+OPENAI_API_KEY=
+OPENWEATHER_API_KEY=
+NEWSAPI_KEY=
 
----
+# Local API server
+PORT=4000
+CORS_ORIGIN=*
+MAX_UPLOAD_SIZE_MB=10
+```
 
-## Структура проекта
-- `src/pages` — страницы Next.js
-- `src/components` — UI-компоненты
-- `src/api` — API-клиенты
-- `src/pages/api/gpt.ts` — интеграция с OpenAI и внешними сервисами
-- `public/` — статика и иконки
+### GitHub Pages Note
+If `NEXT_PUBLIC_API_URL` is empty on Pages build, app falls back to demo mode intentionally.
 
----
+## Demo Accounts (Pages demo mode)
+- `admin@campushub.local` / `admin123`
+- `teacher@campushub.local` / `teacher123`
+- `student@campushub.local` / `student123`
 
-## Контакты и поддержка
-- [Telegram](https://t.me/nerdlin)
-- [Email](nerdlinnut@gmail.com)
+## Scripts
+| Script | Description |
+|---|---|
+| `npm run dev` | Run Next.js + local API server |
+| `npm run server` | Run only local API server |
+| `npm run build` | Production build |
+| `npm run start` | Start built app |
+| `npm run lint` | Lint checks |
 
----
+## Render Setup (Production API)
+If you want real backend instead of demo mode:
 
-## GitHub Pages
-- В репозитории добавлен workflow `.github/workflows/deploy-pages.yml` для автодеплоя на GitHub Pages.
-- После пуша в `main` будет выполняться сборка и публикация статической версии сайта.
-- Включите **Settings → Pages → Source: GitHub Actions**.
-- Сайт будет доступен по адресу: `https://nerdlin.github.io/Campus_Hub/`.
+1. Deploy backend service (Node) using this repo (or a backend-only copy).
+2. Ensure service exposes API routes (for example `/api/login`, `/api/register`, etc.).
+3. In GitHub Actions Pages workflow, set:
+   - `NEXT_PUBLIC_API_URL=https://<your-render-domain>/api`
+4. Redeploy Pages.
 
----
+After this, frontend sends real requests and does not use demo storage.
 
-**Campus Hub — современное образование для всех!**
+## Why You May See 405 on Pages
+`405 Method Not Allowed` happens when frontend sends `POST /login` to static Pages host (no backend route there).
+
+Current README setup avoids this by defaulting to demo mode when no API URL is configured.
+
+## Project Structure (Simplified)
+```text
+Campus_Hub/
+  src/
+    app/                  # App Router pages
+    components/           # UI and feature components
+    hooks/                # Shared hooks
+    lib/
+      api.ts              # Main API layer + demo fallback
+      i18n.ts             # i18n bootstrap
+    api/                  # Legacy wrappers used by some pages
+  server.js               # Local API server for development
+  db.json                 # Local data source for json-server
+  .github/workflows/
+    deploy-pages.yml      # GitHub Pages deploy
+    ci.yml                # CI checks
+```
+
+## Screenshots
+![Chat](public/preview-chat.png)
+![Dark Theme](public/preview-dark.png)
+![Admin Panel](public/preview-admin.png)
+
+## License
+MIT
