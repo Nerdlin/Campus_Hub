@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ClientRoot from "./ClientRoot";
-import { ThemeProvider } from "@/hooks/useTheme.tsx";
+import { ThemeProvider } from "@/hooks/useTheme";
 
 export const metadata: Metadata = {
   title: "Campus Hub - Образовательная платформа",

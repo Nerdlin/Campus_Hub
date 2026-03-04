@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { authApi } from '@/lib/api';
+import { authApi, Grade, ScheduleItem } from '@/lib/api';
 
 interface User {
   id: string;
@@ -9,9 +9,14 @@ interface User {
   email: string;
   role: 'student' | 'teacher' | 'admin';
   avatar?: string;
-  grades?: any[];
-  schedule?: any[];
+  grades?: Grade[];
+  schedule?: ScheduleItem[];
   attendanceRate?: number;
+  banner?: string;
+  phone?: string;
+  address?: string;
+  major?: string;
+  year?: string;
 }
 
 interface AuthContextType {

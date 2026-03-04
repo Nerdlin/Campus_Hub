@@ -53,8 +53,9 @@ export default function Register() {
       try {
         await register({ name, email, password });
         // Redirect will be handled by useEffect
-      } catch (err: any) {
-        setError(err.response?.data?.error || err.message || 'Ошибка регистрации');
+      } catch (err: unknown) {
+        const maybeError = err as { response?: { data?: { error?: string } }; message?: string };
+        setError(maybeError.response?.data?.error || maybeError.message || 'Ошибка регистрации');
       } finally {
         setIsLoading(false);
       }

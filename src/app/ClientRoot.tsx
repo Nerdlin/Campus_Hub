@@ -2,6 +2,7 @@
 import React, { createContext, useState } from "react";
 import { AuthProvider } from "@/hooks/useAuth";
 import Sidebar from "../components/Sidebar";
+import "@/lib/i18n";
 
 export const SidebarContext = createContext<{collapsed: boolean, setCollapsed: (v: boolean) => void}>({collapsed: false, setCollapsed: () => {}});
 

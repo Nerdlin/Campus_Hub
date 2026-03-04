@@ -41,8 +41,9 @@ export default function Login() {
         const userData = await authApi.login({ email, password });
         login(userData);
         // Redirect will be handled by useEffect
-      } catch (err: any) {
-        setError(err.response?.data?.error || err.message || 'Ошибка входа');
+      } catch (err: unknown) {
+        const maybeError = err as { response?: { data?: { error?: string } }; message?: string };
+        setError(maybeError.response?.data?.error || maybeError.message || 'Ошибка входа');
       } finally {
         setIsLoading(false);
       }

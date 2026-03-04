@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
     try {
       await authApi.forgotPassword(email);
       setSuccess(true);
-    } catch (err) {
+    } catch {
       setError('Ошибка при отправке письма. Проверьте email.');
     } finally {
       setLoading(false);
