@@ -1,56 +1,33 @@
-// userApi.js — API для работы с пользователями
-// Все функции используют fetch к http://localhost:4000
+﻿import { userApi as coreUserApi } from '../lib/api';
 
-const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === 'true';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || (isGitHubPages ? '' : 'http://localhost:4000/api');
-
-/** Получить всех пользователей (с поиском, фильтрацией) */
 export async function getUsers({ search = '', exclude = '' } = {}) {
-  const params = new URLSearchParams({ search, exclude });
-  const res = await fetch(`${API_URL}/users?${params}`);
-  if (!res.ok) throw new Error('Ошибка получения пользователей');
-  return res.json();
+  const users = await coreUserApi.getUsers();
+  const q = String(search || '').toLowerCase();
+  return users
+    .filter((u) => (exclude ? u.id !== exclude : true))
+    .filter((u) => {
+      if (!q) return true;
+      return String(u.name || '').toLowerCase().includes(q) || String(u.email || '').toLowerCase().includes(q);
+    });
 }
 
-/** Зарегистрировать пользователя */
 export async function registerUser({ name, email, password }) {
-  const res = await fetch(`${API_URL}/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, password })
-  });
-  if (!res.ok) throw new Error('Ошибка регистрации');
-  return res.json();
+  return coreUserApi.createUser({ name, email, password });
 }
 
-/** Удалить пользователя (только admin) */
 export async function deleteUser(userId) {
-  const res = await fetch(`${API_URL}/admin/users/${userId}`, { method: 'DELETE' });
-  if (!res.ok) throw new Error('Ошибка удаления пользователя');
-  return res.json();
+  return coreUserApi.deleteUser(String(userId));
 }
 
-/** Получить статистику для админа */
 export async function getAdminStats() {
-  const res = await fetch(`${API_URL}/admin/stats`);
-  if (!res.ok) throw new Error('Ошибка получения статистики');
-  return res.json();
+  return coreUserApi.getAdminStats();
 }
 
-/** Получить расписание пользователя */
 export async function getUserSchedule(userId) {
-  const res = await fetch(`${API_URL}/users/${userId}/schedule`);
-  if (!res.ok) throw new Error('Ошибка получения расписания');
-  return res.json();
+  return coreUserApi.getUserSchedule(String(userId));
 }
 
-/** Обновить пользователя (имя, email, пароль и т.д.) */
 export async function updateUser(userId, data) {
-  const res = await fetch(`${API_URL}/users/${userId}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  if (!res.ok) throw new Error('Ошибка обновления пользователя');
-  return res.json();
-} 
+  return coreUserApi.updateUser(String(userId), data || {});
+}
+

@@ -1,43 +1,37 @@
-// subjectApi.js — API для работы с предметами
-// Все функции используют fetch к http://localhost:4000
+﻿import { subjectApi as coreSubjectApi, userApi as coreUserApi } from '../lib/api';
 
-const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === 'true';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || (isGitHubPages ? '' : 'http://localhost:4000/api');
-
-/** Получить предметы преподавателя */
-export async function getTeacherSubjects(teacherId, requestingUserId) {
-  const params = new URLSearchParams({ requestingUserId });
-  const res = await fetch(`${API_URL}/teachers/${teacherId}/subjects?${params}`);
-  if (!res.ok) throw new Error('Ошибка получения предметов преподавателя');
-  return res.json();
+export async function getTeacherSubjects(teacherId) {
+  const subjects = await coreSubjectApi.getSubjects();
+  return subjects.filter((s) => String(s.teacherId || '') === String(teacherId));
 }
 
-/** Получить предметы студента */
-export async function getStudentSubjects(studentId, requestingUserId) {
-  const params = new URLSearchParams({ requestingUserId });
-  const res = await fetch(`${API_URL}/students/${studentId}/subjects?${params}`);
-  if (!res.ok) throw new Error('Ошибка получения предметов студента');
-  return res.json();
+export async function getStudentSubjects(studentId) {
+  const subjects = await coreSubjectApi.getSubjects();
+  return subjects.filter((s) => (s.students || []).some((st) => String(st.id) === String(studentId)));
 }
 
-/** Добавить студента в предмет (teacher/admin) */
-export async function addStudentToSubject(subjectId, studentId, userId) {
-  const res = await fetch(`${API_URL}/subjects/${subjectId}/students`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ studentId, userId })
-  });
-  if (!res.ok) throw new Error('Ошибка добавления студента');
-  return res.json();
+export async function addStudentToSubject(subjectId, studentId) {
+  const [subjects, users] = await Promise.all([coreSubjectApi.getSubjects(), coreUserApi.getUsers()]);
+  const subject = subjects.find((s) => String(s.id) === String(subjectId));
+  if (!subject) throw new Error('Предмет не найден');
+
+  const student = users.find((u) => String(u.id) === String(studentId));
+  if (!student) throw new Error('Студент не найден');
+
+  const students = Array.isArray(subject.students) ? [...subject.students] : [];
+  if (!students.some((st) => String(st.id) === String(studentId))) {
+    students.push({ id: student.id, name: student.name, grades: [] });
+  }
+
+  return coreSubjectApi.updateSubject(String(subjectId), { ...subject, students });
 }
 
-/** Удалить студента из предмета (teacher/admin) */
-export async function removeStudentFromSubject(subjectId, studentId, userId) {
-  const res = await fetch(`${API_URL}/subjects/${subjectId}/students/${studentId}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId })
-  });
-  if (!res.ok) throw new Error('Ошибка удаления студента');
-  return res.json();
-} 
+export async function removeStudentFromSubject(subjectId, studentId) {
+  const subjects = await coreSubjectApi.getSubjects();
+  const subject = subjects.find((s) => String(s.id) === String(subjectId));
+  if (!subject) throw new Error('Предмет не найден');
+
+  const students = (subject.students || []).filter((st) => String(st.id) !== String(studentId));
+  return coreSubjectApi.updateSubject(String(subjectId), { ...subject, students });
+}
+

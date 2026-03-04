@@ -1,34 +1,41 @@
-// gradeApi.js — API для работы с оценками
-// Все функции используют fetch к http://localhost:4000
+﻿import { gradeApi as coreGradeApi, userApi as coreUserApi, __demoHelpers } from '../lib/api';
 
-const isGitHubPages = process.env.NEXT_PUBLIC_GITHUB_PAGES === 'true';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || (isGitHubPages ? '' : 'http://localhost:4000/api');
+async function resolveGradeOwnerId(gradeId) {
+  const users = await coreUserApi.getUsers();
+  for (const user of users) {
+    const grades = Array.isArray(user.grades) ? user.grades : [];
+    if (grades.some((g) => g.id === gradeId)) return user.id;
+  }
 
-/** Поставить оценку студенту по предмету */
+  // demo fallback when user grades were not hydrated
+  const demoDb = __demoHelpers.readDemoDb();
+  const ownerId = __demoHelpers.findGradeOwnerId(demoDb, gradeId);
+  return ownerId;
+}
+
 export async function postGrade({ studentId, subjectId, value, teacherId }) {
-  const res = await fetch(`${API_URL}/grades`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ studentId, subjectId, value, teacherId })
+  return coreGradeApi.postGrade(String(studentId), {
+    subject: String(subjectId || 'Subject'),
+    value: Number(value),
+    type: 'exam',
+    date: new Date().toISOString(),
+    teacherId,
   });
-  if (!res.ok) throw new Error('Ошибка выставления оценки');
-  return res.json();
 }
 
-/** Обновить оценку */
 export async function updateGrade(gradeId, data) {
-  const res = await fetch(`${API_URL}/grades/${gradeId}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+  const ownerId = await resolveGradeOwnerId(String(gradeId));
+  if (!ownerId) throw new Error('Не удалось определить владельца оценки');
+  return coreGradeApi.updateGrade(ownerId, String(gradeId), {
+    value: Number(data?.value ?? 0),
+    type: String(data?.type || 'exam'),
+    date: String(data?.date || new Date().toISOString()),
   });
-  if (!res.ok) throw new Error('Ошибка обновления оценки');
-  return res.json();
 }
 
-/** Удалить оценку */
 export async function deleteGrade(gradeId) {
-  const res = await fetch(`${API_URL}/grades/${gradeId}`, { method: 'DELETE' });
-  if (!res.ok) throw new Error('Ошибка удаления оценки');
-  return res.json();
-} 
+  const ownerId = await resolveGradeOwnerId(String(gradeId));
+  if (!ownerId) throw new Error('Не удалось определить владельца оценки');
+  return coreGradeApi.deleteGrade(ownerId, String(gradeId));
+}
+
